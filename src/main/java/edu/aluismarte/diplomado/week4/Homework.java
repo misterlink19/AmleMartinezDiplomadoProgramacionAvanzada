@@ -4,6 +4,7 @@ import edu.aluismarte.diplomado.model.week4.Operation;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.io.Writer;
 
 /**
  * Reescribir este código en piezas testeables y hacer los test cubriendo multiples escenarios
@@ -34,4 +35,23 @@ public class Homework {
         }
     }
 
+    public double calculateAndSave(Operation operation, int a, int b, Writer archivo) throws Exception {
+
+        Double result = switch (operation) {
+            case SUM -> (double) (a + b);
+            case MULT -> (double) a * b;
+            case DIV -> (double) a / b;
+            default -> null;
+        };
+
+        if (result == null) {
+            return Double.parseDouble(null);
+        }
+
+        try (PrintWriter out = new PrintWriter(archivo)) {
+            out.println("Result is: " + result);
+        }
+
+        return result;
+    }
 }
