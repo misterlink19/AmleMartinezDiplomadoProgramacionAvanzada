@@ -18,7 +18,22 @@ public class Exercise1Week3 {
      * @param number número a comprobar para saber si es Fizz, Buzz o FizzBuzz
      * @return Un string que es igual a Fizz, Buzz o FizzBuzz
      */
-    public String fizzbuzz1(Integer number) {
-        return null;
+    public String fizzbuzz(Integer number) {
+        if(number == null)
+        {
+            throw new NullPointerException("El numero no puede ser null");
+        }
+        if(number % 15 == 0)
+        {
+            return FIZZBUZZ;
+        }else if (number % 5 == 0)
+        {
+            return FIZZ;
+        }else if (number % 3 == 0)
+        {
+            return BUZZ;
+        }else {
+            return number+"";
+        }
     }
 }

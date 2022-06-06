@@ -15,19 +15,46 @@ import static org.junit.jupiter.api.Assertions.*;
 class Exercise1Week4Test {
 
     private final Exercise1Week4 exercise1Week4 = new Exercise1Week4();
-    private IceScream creaHelado(String name, String flavor, BigDecimal amount) {
-        return IceScream.builder().name(name).flavor(flavor).amount(amount).build();
-        }
 
     @Test
-    void probandoFuncionalidadDeLaMaquinaDeHelados()
-    {
-        List<IceScream> losHelados = new ArrayList<>();
+    void casoInicial() {
+        List<IceScream> helados = new ArrayList<>();
+        helados.add(IceScream.builder().name("Chicle").amount(new BigDecimal(50)).build());
+        helados.add(IceScream.builder().name("Fresa").amount(new BigDecimal(100)).build());
+        helados.add(IceScream.builder().name("Chocolate").amount(new BigDecimal(150)).build());
 
-        losHelados.add(creaHelado("Helado de", "Fresa",new BigDecimal(100)));
-        losHelados.add(creaHelado("Helado de", "chocolate",new BigDecimal(150)));
-        losHelados.add(creaHelado("Helado de", "chicle",new BigDecimal(50)));
+        IceScream iceScreamCombination = exercise1Week4.createIceScreamCombination(helados, 60d);
+        assertNotNull(iceScreamCombination);
+        assertEquals("Helado de Chocolate, Fresa y Chicle", iceScreamCombination.getName());
+        assertEquals("MIXTO", iceScreamCombination.getFlavor());
+        assertEquals(new BigDecimal("240.00"), iceScreamCombination.getAmount());
 
+    }
 
+    @Test
+    void casoHeladoNombreNull() {
+        List<IceScream> helados = new ArrayList<>();
+        IceScream iceScreamCombination = exercise1Week4.createIceScreamCombination(helados, 60d);
+        assertNull(iceScreamCombination.getName());
+    }
+
+    @Test
+    void casoHeladoFlavorNull() {
+        List<IceScream> helados = new ArrayList<>();
+        IceScream iceScreamCombination = exercise1Week4.createIceScreamCombination(helados, 60d);
+        assertNull(iceScreamCombination.getFlavor());
+    }
+
+    @Test
+    void casoHeladoAmountNull() {
+        List<IceScream> helados = new ArrayList<>();
+        IceScream iceScreamCombination = exercise1Week4.createIceScreamCombination(helados, 60d);
+        assertNull(iceScreamCombination.getAmount());
+    }
+
+    @Test
+    void casoComboNull() {
+        List<IceScream> helados = new ArrayList<>();
+        assertNull(exercise1Week4.createIceScreamCombination(helados, null).getId());
     }
 }

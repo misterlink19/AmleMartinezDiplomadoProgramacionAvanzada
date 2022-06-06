@@ -3,8 +3,8 @@ package edu.aluismarte.diplomado.week4;
 import edu.aluismarte.diplomado.model.week4.Operation;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 /**
  * Reescribir este código en piezas testeables y hacer los test cubriendo multiples escenarios
@@ -27,7 +27,7 @@ public class Homework {
             default -> null;
         };
         if (result == null) {
-            throw new Exception("No operation");
+            throw new OperationNullException();
         }
         File file = new File("filename.txt");
         try (PrintWriter out = new PrintWriter(file)) {
@@ -35,23 +35,50 @@ public class Homework {
         }
     }
 
-    public double calculateAndSave(Operation operation, int a, int b, Writer archivo) throws Exception {
-
+    public static void calculateAndSave(Operation operation, Double a, Double b, File archivo) throws Exception {
+        if (operation == null) {
+            throw new OperationNullException();
+        }
+        if(archivo == null)
+        {
+            throw new NullPointerException();
+        }
         Double result = switch (operation) {
-            case SUM -> (double) (a + b);
-            case MULT -> (double) a * b;
-            case DIV -> (double) a / b;
-            default -> null;
+            case SUM -> suma(a, b);
+            case MULT -> multiplicacion(a, b);
+            case DIV -> division(a, b);
+
         };
-
-        if (result == null) {
-            return Double.parseDouble(null);
+        try {
+            PrintWriter out = new PrintWriter(archivo);
+            out.write("Result is: " + result);
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        try (PrintWriter out = new PrintWriter(archivo)) {
-            out.println("Result is: " + result);
-        }
-
-        return result;
     }
+
+    private static Double suma(Double a, Double b) {
+        return (a + b);
+    }
+
+    private static Double multiplicacion(Double a, Double b) {
+        return (a * b);
+    }
+
+    private static Double division(Double a, Double b) {
+        if (b == 0)
+            return b;
+        else
+            return a / b;
+    }
+
+    public static class OperationNullException extends RuntimeException {
+
+        public OperationNullException() {
+            super("No operation");
+        }
+    }
+
 }
