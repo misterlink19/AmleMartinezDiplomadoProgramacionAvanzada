@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
  * @author aluis on 5/8/2022.
  */
 class Exercise1Week3Test {

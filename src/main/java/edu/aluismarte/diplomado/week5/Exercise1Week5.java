@@ -25,9 +25,7 @@ public class Exercise1Week5 {
     private final OkHttpClient client = new OkHttpClient();
 
     public void getAndSave(int code, String filename) {
-        Request request = new Request.Builder()
-                .url(API_URL + "/" + code)
-                .build();
+        Request request = creaUrl(code);
         Call call = client.newCall(request);
         try {
             Response response = call.execute();
@@ -40,6 +38,22 @@ public class Exercise1Week5 {
         }
     }
 
-//    private BufferedImage getCatUsingStatusCode(int code) {
-//    }
+    private static Request creaUrl(int codigo) {
+        Request request = new Request.Builder()
+                .url(API_URL + "/" + codigo)
+                .build();
+        return request;
+    }
+
+    public BufferedImage getCatUsingStatusCode(int code) {
+        Request request = creaUrl(code);
+        Call call = client.newCall(request);
+        try {
+            Response response = call.execute();
+            InputStream inputStream = response.body().byteStream();
+            return ImageIO.read(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
