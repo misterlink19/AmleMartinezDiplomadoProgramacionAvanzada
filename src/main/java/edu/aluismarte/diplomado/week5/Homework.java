@@ -22,17 +22,17 @@ public class Homework {
 
     // TODO el método como tal, no reemplaza la variable por un texto custom y eso tenemos que arreglarlo
 
-    public String prepareTemplate(List<String> values, String template) {
-        for (String value : values) {
+    public String prepareTemplate(List<VarsReplace> values, String template) {
+        for (VarsReplace value : values) {
             template = replaceVar(template, value);
         }
         return template;
     }
 
     // TODO test this method
-    private String replaceVar(String template, String value) {
-        String var = "\\$\\{" + value + "\\}";
-        return template.replaceAll(var, value);
+    private String replaceVar(String plantilla, VarsReplace valor) {
+        String var = "\\$\\{" + valor.getVarReplace() + "\\}";
+        return plantilla.replaceAll(var, valor.getValue());
     }
 
     /**
