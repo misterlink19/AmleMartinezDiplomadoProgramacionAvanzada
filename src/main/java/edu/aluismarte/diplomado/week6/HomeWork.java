@@ -10,7 +10,6 @@ package edu.aluismarte.diplomado.week6;
  * @implNote Tomar en cuenta cada campo del objeto edu.aluismarte.diplomado.model.week6.FormData
  */
 public class HomeWork {
-
     public <T> T formValidation(boolean required, boolean useDefaultValue, T preDataValue, T defaultValue, T emptyValue) {
         if (required) {
             if (preDataValue != null) {
@@ -23,5 +22,4 @@ public class HomeWork {
         }
         return emptyValue;
     }
-
 }
