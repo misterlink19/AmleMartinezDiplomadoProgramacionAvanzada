@@ -1,17 +1,10 @@
 package edu.aluismarte.diplomado.week6;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Generar los test dinámicos o parametrizado para que se tenga toda la data de prueba, tanto valores negativos como positivos
@@ -23,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class Exercise1Week6Test {
 
-    private static final String BAD_MIMETYPES_PATH = "/BadMimetypes.csv";
+    private static final String BAD_MIMETYPES_PATH = "./src/test/resources/BadMimetypes.csv";
 
     private static final String APPLICATION_PATH = "./mimetypes/application.csv";
     private static final String AUDIO_PATH = "./mimetypes/audio.csv";
@@ -46,60 +39,7 @@ class Exercise1Week6Test {
      * @param mimetypesFile Ruta del archivo a leer
      * @return Una lista por líneas del archivo
      */
-
-    @ParameterizedTest
-    @CsvFileSource( resources = BAD_MIMETYPES_PATH)
-    void casoMalMimetype (String mimeType) {
-        assertEquals(false,exercise1Week6.isValidMimetype(mimeType));
-    }
-
-    @ParameterizedTest
-    @CsvFileSource( files = APPLICATION_PATH)
-    void casoTodoLosAplicacionesMimetype(String mimeType) {
-        assertEquals(true,exercise1Week6.isValidMimetype(mimeType));
-    }
-
-    @ParameterizedTest
-    @CsvFileSource( files = AUDIO_PATH)
-    void casoTodoLosAudiosMimetype(String mimeType) {
-        assertEquals(true,exercise1Week6.isValidMimetype(mimeType));
-    }
-    @ParameterizedTest
-    @CsvFileSource( files = FONT_PATH)
-    void casoTodoLasFuentesMimetype(String mimeType) {
-        assertEquals(true,exercise1Week6.isValidMimetype(mimeType));
-    }
-    @ParameterizedTest
-    @CsvFileSource( files = IMAGE_PATH)
-    void casoTodoLasImagenesMimetype(String mimeType) {
-        assertEquals(true,exercise1Week6.isValidMimetype(mimeType));
-    }
-    @ParameterizedTest
-    @CsvFileSource( files = MESSAGE_PATH)
-    void casoTodoLosMensajesMimetype(String mimeType) {
-        assertEquals(true,exercise1Week6.isValidMimetype(mimeType));
-    }
-    @ParameterizedTest
-    @CsvFileSource( files = MODEL_PATH)
-    void casoTodoLosModelosMimetype(String mimeType) {
-        assertEquals(true,exercise1Week6.isValidMimetype(mimeType));
-    }
-    @ParameterizedTest
-    @CsvFileSource( files = MULTIPART_PATH)
-    void casoTodoLosMultipartesMimetype(String mimeType) {
-        assertEquals(true,exercise1Week6.isValidMimetype(mimeType));
-    }
-    @ParameterizedTest
-    @CsvFileSource( files = TEXT_PATH)
-    void casoTodoLosTextosMimetype(String mimeType) {
-        assertEquals(true,exercise1Week6.isValidMimetype(mimeType));
-    }
-    @ParameterizedTest
-    @CsvFileSource( files = VIDEO_PATH)
-    void casoTodoLosVideosMimetype(String mimeType) {
-        assertEquals(true,exercise1Week6.isValidMimetype(mimeType));
-    }
-    public List<String> readAllLines(String mimetypesFile) {
+    public static List<String> readAllLines(String mimetypesFile) {
         try {
             return Files.readAllLines(Paths.get(mimetypesFile));
         } catch (IOException e) {

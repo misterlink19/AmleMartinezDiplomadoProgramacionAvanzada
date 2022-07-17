@@ -3,7 +3,6 @@ package edu.aluismarte.diplomado.week4;
 import edu.aluismarte.diplomado.model.week4.Operation;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -33,45 +32,6 @@ public class Homework {
         try (PrintWriter out = new PrintWriter(file)) {
             out.println("Result is: " + result);
         }
-    }
-
-    public static void calculateAndSave(Operation operation, Double a, Double b, File archivo) throws Exception {
-        if (operation == null) {
-            throw new OperationNullException();
-        }
-        if(archivo == null)
-        {
-            throw new NullPointerException();
-        }
-        Double result = switch (operation) {
-            case SUM -> suma(a, b);
-            case MULT -> multiplicacion(a, b);
-            case DIV -> division(a, b);
-
-        };
-        try {
-            PrintWriter out = new PrintWriter(archivo);
-            out.write("Result is: " + result);
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static Double suma(Double a, Double b) {
-        return (a + b);
-    }
-
-    private static Double multiplicacion(Double a, Double b) {
-        return (a * b);
-    }
-
-    private static Double division(Double a, Double b) {
-        if (b == 0)
-            return b;
-        else
-            return a / b;
     }
 
     public static class OperationNullException extends RuntimeException {

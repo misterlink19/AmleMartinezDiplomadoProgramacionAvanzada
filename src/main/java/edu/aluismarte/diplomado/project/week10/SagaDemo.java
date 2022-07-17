@@ -2,9 +2,9 @@ package edu.aluismarte.diplomado.project.week10;
 
 import edu.aluismarte.diplomado.model.project.Demo;
 import edu.aluismarte.diplomado.model.project.DemoResponse;
-import edu.aluismarte.diplomado.project.week10.saga.SagaFactory;
-import edu.aluismarte.diplomado.project.week10.saga.SagaOrchestrator;
-import edu.aluismarte.diplomado.project.week10.saga.model.Saga;
+import edu.aluismarte.diplomado.project.week11.saga.SagaFactory;
+import edu.aluismarte.diplomado.project.week11.saga.SagaOrchestrator;
+import edu.aluismarte.diplomado.project.week11.saga.model.Saga;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

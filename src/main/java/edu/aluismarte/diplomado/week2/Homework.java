@@ -28,23 +28,19 @@ public class Homework {
      * @implNote El último día de vacación también cuenta, es decir, que regresa el siguiente dia laboral
      */
     public LocalDate calculateDueDate(List<DayOfWeek> laborDays, List<Holiday> holidays, LocalDate startDate, int vacation) {
-        LocalDate result = startDate; // Its immutable data type
-        int vacations = 0;
-        while (true) {
-            vacations += getIsLaborDay(laborDays, holidays, result);
-            if (vacations <= vacation) {
-                result = result.plusDays(1);
-            } else {
-                break;
-            }
-        }
-        return result;
+        holidays = dameLosFeriados(startDate, startDate.plusDays(vacation * 3L)); //Uso de una parte de codigo del profesor para el calculo de los feriados.
+
+        return null;
     }
 
-    private int getIsLaborDay(List<DayOfWeek> laborDays, List<Holiday> holidays, LocalDate dateToFind) {
-        if (holidays.stream().anyMatch(holiday -> holiday.getDate().isEqual(dateToFind))) {
-            return 0;
-        }
-        return laborDays.contains(dateToFind.getDayOfWeek()) ? 1 : 0;
+    private List<Holiday> dameLosFeriados(LocalDate startDate, LocalDate endDate) {
+        return Data.HOLIDAYS.stream()
+                    .filter(holiday -> holiday.getDate().compareTo(startDate) >= 0 && holiday.getDate().compareTo(endDate) <= 0)
+                    .collect(Collectors.toList());
+    }
+    private List<DayOfWeek> dameLosDiasDeTrabajo (int cuantosDias)
+    {
+        List <String> diasLaborables;
+        return Collections.singletonList(DayOfWeek.of(cuantosDias));
     }
 }

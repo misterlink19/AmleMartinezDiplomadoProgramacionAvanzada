@@ -1,10 +1,7 @@
 package edu.aluismarte.diplomado.week4;
 
 import edu.aluismarte.diplomado.model.week4.IceScream;
-import org.jetbrains.annotations.NotNull;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -40,60 +37,6 @@ public class Exercise1Week4 {
      * @return El nuevo helado basado en el nombre del conjunto
      */
     public IceScream createIceScreamCombination(List<IceScream> iceScreams, Double percentageCombinationCost) {
-        IceScream elHeladoResultante = new IceScream();
-        if (percentageCombinationCost == null) {
-            return IceScream.builder().build();
-        }
-        if (iceScreams.isEmpty()) {
-            return IceScream.builder().build();
-        }
-        return IceScream.builder()
-                .id("MiID")
-                .name(mezcladoraDeHelados(iceScreams))
-                .flavor("MIXTO")
-                .amount(calculadoraDePreciosDeHelados(iceScreams, percentageCombinationCost))
-                .build();
-    }
-
-//    El cálculo del precio
-    private BigDecimal calculadoraDePreciosDeHelados(List<IceScream> helados, double porcentajeDeCombo)
-    {
-        helados = organizaHelados(helados);
-        BigDecimal resultado = new BigDecimal(-1);
-        IceScream heladoTemporal = new IceScream();
-        for (IceScream heladito: helados) {
-            if(resultado.doubleValue() == -1) {
-               resultado = heladito.getAmount();
-            }else {
-                BigDecimal porcentajeCalculado =  new BigDecimal(porcentajeDeCombo).divide(new BigDecimal(100), 2, RoundingMode.CEILING);
-                resultado = resultado.add(heladito.getAmount().multiply(porcentajeCalculado));
-            }
-        }
-        return resultado;
-    }
-// * - La mezcla de los sabores
-    @NotNull
-    private String mezcladoraDeHelados(List<IceScream> helados)
-    {
-        StringBuilder construyeNombre = new StringBuilder("Helado de ");
-        helados = organizaHelados(helados);
-
-        for (int i = 0; i < helados.size(); i++) {
-            IceScream heladoTemporal = helados.get(i);
-            construyeNombre.append(heladoTemporal.getName());
-            if( i == helados.size() - 2) {
-                construyeNombre.append(" y ");
-            }else if( i < helados.size() - 1) {
-                construyeNombre.append(", ");
-            }
-        }
-        return construyeNombre.toString();
-    }
-
-    // * - Organizando los helados.
-    private List<IceScream> organizaHelados(@NotNull List<IceScream> helados)
-    {
-        helados.sort((o1, o2) -> Double.compare(o2.getAmount().doubleValue(), o1.getAmount().doubleValue()));
-        return helados;
+        return null;
     }
 }

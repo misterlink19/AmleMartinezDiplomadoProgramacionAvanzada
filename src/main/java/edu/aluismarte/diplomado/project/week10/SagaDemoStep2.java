@@ -1,11 +1,11 @@
 package edu.aluismarte.diplomado.project.week10;
 
 import edu.aluismarte.diplomado.model.project.DemoResponse;
-import edu.aluismarte.diplomado.project.week10.saga.model.SagaPayload;
-import edu.aluismarte.diplomado.project.week10.saga.model.SagaStep;
-import edu.aluismarte.diplomado.project.week10.saga.model.SagaStepCompensator;
-import edu.aluismarte.diplomado.project.week10.saga.model.SagaStepHandler;
-import edu.aluismarte.diplomado.project.week9.command.CommandEvent;
+import edu.aluismarte.diplomado.project.week10.command.CommandEvent;
+import edu.aluismarte.diplomado.project.week11.saga.model.SagaPayload;
+import edu.aluismarte.diplomado.project.week11.saga.model.SagaStep;
+import edu.aluismarte.diplomado.project.week11.saga.model.SagaStepCompensator;
+import edu.aluismarte.diplomado.project.week11.saga.model.SagaStepHandler;
 
 @CommandEvent
 public class SagaDemoStep2 implements SagaStep<DemoResponse> {

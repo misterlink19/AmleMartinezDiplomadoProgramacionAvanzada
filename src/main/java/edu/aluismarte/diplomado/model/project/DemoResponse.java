@@ -4,9 +4,9 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@Builder
 public class DemoResponse {
 
     private String result;
