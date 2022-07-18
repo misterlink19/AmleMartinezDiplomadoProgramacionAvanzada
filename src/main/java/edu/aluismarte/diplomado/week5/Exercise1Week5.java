@@ -40,6 +40,17 @@ public class Exercise1Week5 {
         }
     }
 
-//    private BufferedImage getCatUsingStatusCode(int code) {
-//    }
+    public BufferedImage getCatUsingStatusCode(int code) {
+        Request request = new Request.Builder()
+                .url(API_URL + "/" + code)
+                .build();
+        Call call = client.newCall(request);
+        try {
+            Response response = call.execute();
+            InputStream inputStream = response.body().byteStream();
+            return ImageIO.read(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

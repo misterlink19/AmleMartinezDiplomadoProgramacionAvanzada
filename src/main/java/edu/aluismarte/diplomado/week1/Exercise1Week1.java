@@ -21,7 +21,17 @@ import java.util.List;
 public class Exercise1Week1 {
 
     public static List<String> pairOfSumToTarget(List<Integer> numbers, int target) {
-        return new ArrayList<>();
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < numbers.size(); i++) {
+            for (int j = i + 1; j < numbers.size(); j++) {
+                Integer a = numbers.get(i);
+                Integer b = numbers.get(j);
+                if (a + b == target) {
+                    result.add(a + "," + b);
+                }
+            }
+        }
+        return result;
     }
 
     public static void main(String[] args) {

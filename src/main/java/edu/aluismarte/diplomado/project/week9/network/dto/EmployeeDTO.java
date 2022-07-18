@@ -1,8 +1,8 @@
 package edu.aluismarte.diplomado.project.week9.network.dto;
 
+import edu.aluismarte.diplomado.model.project.EmployeeStateJson;
 import edu.aluismarte.diplomado.model.project.EmployeeStateJson2;
 import edu.aluismarte.diplomado.model.project.EmployeeStateJson3;
-import edu.aluismarte.diplomado.model.project.EmployeeStateJson;
 import lombok.*;
 
 /**

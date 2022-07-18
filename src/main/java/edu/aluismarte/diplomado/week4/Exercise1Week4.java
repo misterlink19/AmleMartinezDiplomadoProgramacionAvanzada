@@ -2,6 +2,8 @@ package edu.aluismarte.diplomado.week4;
 
 import edu.aluismarte.diplomado.model.week4.IceScream;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -37,6 +39,46 @@ public class Exercise1Week4 {
      * @return El nuevo helado basado en el nombre del conjunto
      */
     public IceScream createIceScreamCombination(List<IceScream> iceScreams, Double percentageCombinationCost) {
-        return null;
+        if (percentageCombinationCost == null) {
+            return IceScream.builder().build();
+        }
+        if (iceScreams.isEmpty()) {
+            return IceScream.builder().build();
+        }
+        return IceScream.builder()
+                .id("MyID")
+                .name(generateIceScreamName(iceScreams))
+                .flavor("MIXTO")
+                .amount(calculateIceScreamPrice(iceScreams, percentageCombinationCost))
+                .build();
+    }
+
+    private BigDecimal calculateIceScreamPrice(List<IceScream> iceScreams, Double percentageCombinationCost) {
+        iceScreams.sort((o1, o2) -> Double.compare(o2.getAmount().doubleValue(), o1.getAmount().doubleValue()));
+        BigDecimal result = new BigDecimal(-1);
+        for (IceScream iceScream : iceScreams) {
+            if (result.doubleValue() == -1) {
+                result = iceScream.getAmount();
+            } else {
+                BigDecimal decimalValueOfPercentage = new BigDecimal(percentageCombinationCost).divide(new BigDecimal(100), 2, RoundingMode.CEILING);
+                result = result.add(iceScream.getAmount().multiply(decimalValueOfPercentage));
+            }
+        }
+        return result.setScale(2, RoundingMode.CEILING);
+    }
+
+    private String generateIceScreamName(List<IceScream> iceScreams) {
+        iceScreams.sort((o1, o2) -> Double.compare(o2.getAmount().doubleValue(), o1.getAmount().doubleValue()));
+        StringBuilder nameBuilder = new StringBuilder("Helado de ");
+        for (int i = 0; i < iceScreams.size(); i++) {
+            IceScream iceScream = iceScreams.get(i);
+            nameBuilder.append(iceScream.getName());
+            if (i == iceScreams.size() - 2) {
+                nameBuilder.append(" y ");
+            } else if (i < iceScreams.size() - 1) {
+                nameBuilder.append(", ");
+            }
+        }
+        return nameBuilder.toString();
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
  * ¿Como probar estos métodos?
  * <p>
  * Hacer los test principalmente de los métodos privados (Se hace de forma indirecta)
- * <p>
+ *
  * Arreglar la lógica de la función, no siempre lo que el cliente pide o la primera implementación funciona adecuadamente
  *
  * @author aluis on 4/3/2022.
@@ -20,17 +20,17 @@ public class Homework {
 
     // TODO el método como tal, no reemplaza la variable por un texto custom y eso tenemos que arreglarlo
 
-    public String prepareTemplate(List<String> values, String template) {
-        for (String value : values) {
+    public String prepareTemplate(List<VarsReplace> values, String template) {
+        for (VarsReplace value : values) {
             template = replaceVar(template, value);
         }
         return template;
     }
 
     // TODO test this method
-    private String replaceVar(String template, String value) {
-        String var = "\\$\\{" + value + "\\}";
-        return template.replaceAll(var, value);
+    private String replaceVar(String template, VarsReplace value) {
+        String var = "\\$\\{" + value.getVarReplace() + "\\}";
+        return template.replaceAll(var, value.getValue());
     }
 
     /**

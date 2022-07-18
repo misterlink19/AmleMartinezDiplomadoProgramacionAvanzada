@@ -3,7 +3,9 @@ package edu.aluismarte.diplomado.week4;
 import edu.aluismarte.diplomado.model.week4.Operation;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 
 /**
  * Reescribir este código en piezas testeables y hacer los test cubriendo multiples escenarios
@@ -17,6 +19,42 @@ import java.io.PrintWriter;
 public class Homework {
 
     // TODO crear una funcion nueva sin borrar la vieja
+    public void calculateAndSave(Operation operation, Double a, Double b, File file) throws IOException {
+        if (file ==null) {
+            throw new NullPointerException();
+        }
+        calculateAndSave(operation, a, b, new PrintWriter(file));
+    }
+
+    public void calculateAndSave(Operation operation, Double a, Double b, Writer writer) {
+        if (operation == null) {
+            throw new OperationNullException();
+        }
+        Double result = switch (operation) {
+            case SUM -> sum(a, b);
+            case MULT -> multiplication(a, b);
+            case DIV -> divide(a, b);
+        };
+        try {
+            writer.write("Result is: " + result);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Double sum(Double a, Double b) {
+        return a + b;
+    }
+
+    private Double multiplication(Double a, Double b) {
+        return a * b;
+    }
+
+    private Double divide(Double a, Double b) {
+        return a / b;
+    }
 
     public static void calculateAndSave(Operation operation, int a, int b) throws Exception {
         Double result = switch (operation) {
@@ -40,5 +78,4 @@ public class Homework {
             super("No operation");
         }
     }
-
 }

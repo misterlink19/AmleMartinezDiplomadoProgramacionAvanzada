@@ -1,10 +1,19 @@
 package edu.aluismarte.diplomado.week6;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Generar los test dinámicos o parametrizado para que se tenga toda la data de prueba, tanto valores negativos como positivos
@@ -30,6 +39,24 @@ class Exercise1Week6Test {
 
     private final Exercise1Week6 exercise1Week6 = new Exercise1Week6();
 
+    @ParameterizedTest
+    @CsvFileSource(files = BAD_MIMETYPES_PATH)
+    void badMimetypesTest(String mimetype) {
+        assertFalse(exercise1Week6.isValidMimetype(mimetype));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(files = {APPLICATION_PATH, AUDIO_PATH, FONT_PATH, IMAGE_PATH, MESSAGE_PATH, MODEL_PATH, MULTIPART_PATH, TEXT_PATH, VIDEO_PATH})
+    void goodMimetypesTest(String mimetype) {
+        assertTrue(exercise1Week6.isValidMimetype(mimetype));
+    }
+
+    @ParameterizedTest
+    @MethodSource("edu.aluismarte.diplomado.week6.Exercise1Week6Test#provideGoodMimetypesNames")
+    void manualLoadTest(String mimetype) {
+        assertTrue(exercise1Week6.isValidMimetype(mimetype));
+    }
+
     /**
      * Función adicional en caso de usar test con ciclos internos.
      * <p>
@@ -46,6 +73,14 @@ class Exercise1Week6Test {
             e.printStackTrace();
             return new ArrayList<>();
         }
+    }
+
+    static Stream<Arguments> provideGoodMimetypesNames() {
+        List<String> mimetypes = new ArrayList<>();
+        for (String extensionsFile : Exercise1Week6.EXTENSIONS_FILES) {
+            mimetypes.addAll(readAllLines("./mimetypes/" + extensionsFile));
+        }
+        return mimetypes.stream().map(Arguments::of);
     }
 
 }

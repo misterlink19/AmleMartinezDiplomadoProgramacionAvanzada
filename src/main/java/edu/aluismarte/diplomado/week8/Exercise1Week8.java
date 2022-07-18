@@ -1,10 +1,6 @@
 package edu.aluismarte.diplomado.week8;
 
-import edu.aluismarte.diplomado.model.week8.PaypalService;
-import edu.aluismarte.diplomado.model.week8.StripeService;
-import edu.aluismarte.diplomado.model.week8.network.*;
-import edu.aluismarte.diplomado.model.week8.network.Ejercicio.*;
-import edu.aluismarte.diplomado.model.week8.network.PagoResponse;
+import edu.aluismarte.diplomado.model.week8.network.exercise.*;
 import edu.aluismarte.diplomado.model.week8.payment.PaymentGateway;
 
 import java.util.UUID;
@@ -15,34 +11,31 @@ import java.util.UUID;
  * Abstraer el sistema de pago en clases aisladas con sus propios procesos.
  *
  * @author aluis on 5/8/2022.
- * @implSpec Cambiar la constante string por el enum e el provider
+ * @implSpec Cambiar la constante string por el enum en el provider
  * @implSpec Hacer uso del POO para abstraer la lógica en clases y aplicar el concepto SOLID
  */
 public class Exercise1Week8 {
-    private final StripeService stripeService = new StripeService();
-    private final PaypalService paypalService = new PaypalService();
 
-    public PagoResponse pay(PagoRequest paymentRequest) {
-        PaymentGateway proveedor = paymentRequest.getProvider().getPaymentGateway();
+    public PaymentResponse2 pay(PaymentRequest2 paymentRequest) {
+        PaymentGateway provider = paymentRequest.getProvider().getPaymentGateway();
         String id = UUID.randomUUID().toString();
-        return  PagoResponse.builder().
-                id(id)
-                .status(proveedor.pay(id, paymentRequest.getAmount()))
+        return PaymentResponse2.builder()
+                .id(id)
+                .status(provider.pay(id, paymentRequest.getAmount()))
                 .build();
     }
 
-    public CancelacionPagoResponse cancel(CancelacionPagoRequest cancelPaymentRequest) {
-        PaymentGateway proveedor = cancelPaymentRequest.getProvider().getPaymentGateway();
-        return  CancelacionPagoResponse.builder()
-                .status(proveedor.cancel(cancelPaymentRequest.getId()))
+    public CancelPaymentResponse2 cancel(CancelPaymentRequest2 cancelPaymentRequest) {
+        PaymentGateway provider = cancelPaymentRequest.getProvider().getPaymentGateway();
+        return CancelPaymentResponse2.builder()
+                .status(provider.cancel(cancelPaymentRequest.getId()))
                 .build();
     }
 
-    public DevolucionPagoResponse refund(DevolucionPagoRequest devolucionPagoRequest) {
-        PaymentGateway proveedor = devolucionPagoRequest.getProvider().getPaymentGateway();
-        return  DevolucionPagoResponse.builder()
-                .status(proveedor.pay(devolucionPagoRequest.getId(),devolucionPagoRequest.getAmount()))
+    public RefundPaymentResponse2 refund(RefundPaymentRequest2 refundPaymentRequest) {
+        PaymentGateway provider = refundPaymentRequest.getProvider().getPaymentGateway();
+        return RefundPaymentResponse2.builder()
+                .status(provider.refund(refundPaymentRequest.getId(), refundPaymentRequest.getAmount()))
                 .build();
     }
-
 }
